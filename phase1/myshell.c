@@ -16,14 +16,16 @@ void unix_error(char *msg) /* Unix-style error */
 int main() 
 {
     char cmdline[MAXLINE]; /* Command line */
-
+   //signal_관련
+    signal(SIGINT, SIG_IGN);
+    signal(SIGTSTP, SIG_IGN);
     while (1) {
+ 
 	/* Read */
 	printf("CSE4100-SP-P#1> ");                   
 	fgets(cmdline, MAXLINE, stdin);
     if (feof(stdin))
 	    exit(0);
-
 	/* Evaluate */
 	eval(cmdline);
     } 
@@ -34,6 +36,7 @@ int main()
 /* eval - Evaluate a command line */
 void eval(char *cmdline) 
 {
+
     char *argv[MAXARGS]; /* Argument list execve() */
     char buf[MAXLINE];   /* Holds modified command line */
     int bg;              /* Should the job run in bg or fg? */
